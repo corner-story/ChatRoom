@@ -135,29 +135,6 @@ void *request_handler(void* sockfd){
         buffer[n] = '\0';
         printf("[%s]: %s\n", client->username, buffer);
         forward_message(client->username, buffer);
-        /*
-        buffer[n] = '\0';
-        printf("[%s]: %s\n", client->username, buffer);
-
-        // add time
-        char *time = get_time();
-        int time_length = strlen(time);
-        strncpy(&data[client->name_length+1], time, time_length);
-
-        // add buffer data
-        int index = client->name_length+1+time_length;
-        data[index] = '&';
-        strcpy(&data[index+1], buffer);
-
-        // add '\n'(send data right now) and '\0'(for printf)
-        int data_length = index+1+n;
-        data[data_length] = '\n';
-        data[data_length+1] = '\0';
-        printf("[%s]: %s\n", "SEND_ALL", data);
-        
-        // send data to all clients
-        send_all(data, data_length+1);
-        */
     }
 
 
