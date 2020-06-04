@@ -18,7 +18,7 @@
 
 */
 
-#define SERVER_PORT 6666
+#define SERVER_PORT	6666
 #define MAX_CLIENT_NUM  32
 #define SERVER_INS      "SERVER-INS"
 #define SERVER_INS_FMT  "%s&%d&%d&%s&%s"
@@ -56,6 +56,10 @@ void forward_message(char *username, char *message);
 
 int main(int argc, char *argv[])
 {
+    int run_port = SERVER_PORT;
+    if(argc == 2){
+    	run_port = atoi(argv[1]);
+    }
     // set sigint handler
     signal(SIGINT, sigint_handler);
     // ignore sigpipe
@@ -76,13 +80,13 @@ int main(int argc, char *argv[])
     memset(&serv_addr, 0, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = inet_addr("0.0.0.0");
-    serv_addr.sin_port = htons(SERVER_PORT);
+    serv_addr.sin_port = htons(run_port);
     assert(bind(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) != -1);
 
     // listen
     assert(listen(sockfd, 20) != -1);
 
-    printf("run tcp server in %s:%d ......\n", "127.0.0.1", SERVER_PORT);
+    printf("run tcp server in %s:%d ......\n", "127.0.0.1", run_port);
     struct sockaddr_in clnt_addr;
     socklen_t clnt_addr_size = sizeof(clnt_addr);
     while (1){

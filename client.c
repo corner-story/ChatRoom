@@ -12,7 +12,7 @@
 #include <locale.h>
 #include <assert.h>
 
-#define SERVER_ADDR "39.107.83.159"
+#define SERVER_ADDR "127.0.0.1"
 #define SERVER_PORT 6666
 
 #define SCREEN_BEGIN_LINE   1
@@ -43,6 +43,16 @@ void init_client(int sockfd);
 void write_display_win(char buffer[]);
 
 int main(int argc, char *argv[]){
+    // chech addr and port
+    char *server_addr = SERVER_ADDR;
+    int server_port = SERVER_PORT;
+    if(argc == 3){
+    	server_addr = argv[1];
+	server_port = atoi(argv[2]);
+    }
+	
+    printf("try to connect %s:%d......\n", server_addr, server_port);
+
     printf("please input your name(length between 1~12): ");
     scanf("%s", username);
     name_length = strlen(username);
@@ -68,8 +78,8 @@ int main(int argc, char *argv[]){
     struct sockaddr_in addr;
     socklen_t addrlen = sizeof(addr);
     addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = inet_addr(SERVER_ADDR);
-    addr.sin_port = htons(SERVER_PORT);
+    addr.sin_addr.s_addr = inet_addr(server_addr);
+    addr.sin_port = htons(server_port);
 
     int res = connect(sockfd, (struct sockaddr*)&addr, addrlen);
     assert(res != -1);
