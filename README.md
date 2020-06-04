@@ -1,5 +1,6 @@
 # ChatRoom
-![LICENSE MIT](https://img.shields.io/github/license/lambdafate/Chatroom)  
+![LICENSE MIT](https://img.shields.io/github/license/lambdafate/Chatroom?style=flat-square)  
+
 a chatroom written in c, base on socket and ncurses
 
 ### how to use
